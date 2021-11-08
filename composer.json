@@ -1,0 +1,24 @@
+{
+    "name": "jordanbeattie/image-optimization",
+    "description": "CraftCMS plugin to render images with the best performing template tags",
+    "type": "craft-plugin",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin"
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Jordanbeattie\\ImageOptimization\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jordan Beattie",
+            "email": "jordan@jordanbeattie.co.uk"
+        }
+    ],
+    "require": {}
+}
