@@ -9,7 +9,7 @@
         "craft-plugin"
     ],
     "support": {},
-    "license": "MIT",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Jordan Beattie",
@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^3.0.0-RC1"
+        "craftcms/cms": "^3.0.0"
     },
     "autoload": {
         "psr-4": {
