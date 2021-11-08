@@ -9,19 +9,27 @@
 
 	<picture>
 		{% if craft.app.images.supportsWebP and image.extension != "svg" %}
-			<source type="image/webp" media="(max-width: 599px)" srcset="{{ image.getUrl({
-				transform: transform ~ 'Mobile',
-				format: 'webp',
-			}) }}">
-			<source type="image/webp" media="(min-width: 600px)" srcset="{{ image.getUrl({
-				transform: transform,
-				format: 'webp',
-			}) }}">
+			{% if craft.images.mobileTransformExists(transform) %}
+				<source type="image/webp" media="(max-width: 599px)" srcset="{{ image.getUrl({
+					transform: transform ~ 'Mobile',
+					format: 'webp',
+				}) }}">
+			{% endif %}
+			{% if craft.images.transformExists(transform) %}
+				<source type="image/webp" media="(min-width: 600px)" srcset="{{ image.getUrl({
+					transform: transform,
+					format: 'webp',
+				}) }}">
+			{% endif %}
 		{% endif %}
-		<source media="(max-width: 599px)" srcset="{{ image.url(transform ~ 'Mobile') }}">
-		<source media="(min-width: 600px)" srcset="{{ image.url(transform) }}">
+		{% if craft.images.mobileTransformExists(transform) %}
+			<source media="(max-width: 599px)" srcset="{{ image.url(transform ~ 'Mobile') }}">
+		{% endif %}
+		{% if craft.images.transformExists(transform) %}
+			<source media="(min-width: 600px)" srcset="{{ image.url(transform) }}">
+		{% endif %}
 		{{ _self.tag(
-			image.url(transform),
+			craft.images.transformExists(transform) ? image.url(transform) : image.url,
 			alt ?? null,
 			class ?? null,
 			style ?? null,
@@ -34,10 +42,10 @@
 
 	{{ _self.tag(
 		(field is instance of('craft\\elements\\Asset')) ? craft.assets.id(field.id).one().url : field.one().url,
-		alt ?? null,
-		class ?? null,
-		style ?? null,
-		attributes ?? null
+	alt ?? null,
+	class ?? null,
+	style ?? null,
+	attributes ?? null
 	) }}
 
 {# Output image tag with passed in image url #}
@@ -52,10 +60,10 @@
 	) }}
 
 {% else %}
-	<script>console.log('[jbimage/image]:: An image could not be rendered. Either there was no image passed or we encountered an issue.')</script>
+	<script>console.log('[images/img]:: something went wrong and no image was returned')</script>
 {% endif %}
 
-{# Image Tag #}
+{# Img Tag Macro #}
 {% macro tag(src, alt, class, style, attributes) %}
 	<img src="{{ src }}"
 		alt="{% if alt is defined and alt is not empty %}{{ alt }}{% else %}{% endif %}"
@@ -65,4 +73,4 @@
 		loading="lazy"
 	/>
 {% endmacro %}
-{# End Image Tag #}
+{# End Img Tag Macro #}

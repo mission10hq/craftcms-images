@@ -1,8 +1,11 @@
 <?php
 
-namespace Jordanbeattie\Images;
-use craft\events\RegisterTemplateRootsEvent;
-use craft\web\View;
+namespace jordanbeattie\images;
+use \craft\web\View;
+use \craft\events\RegisterTemplateRootsEvent;
+use jordanbeattie\images\variables\ImageVariable;
+use \craft\web\twig\variables\CraftVariable;
+
 use yii\base\Event;
 
 class CraftCmsImages extends \craft\base\Plugin
@@ -14,7 +17,15 @@ class CraftCmsImages extends \craft\base\Plugin
             View::class,
             View::EVENT_REGISTER_SITE_TEMPLATE_ROOTS,
             function(RegisterTemplateRootsEvent $event) {
-                $event->roots['jbimage'] = __DIR__ . '/available-templates';
+                $event->roots['images'] = __DIR__ . '/available-templates';
+            }
+        );
+        Event::on(
+            CraftVariable::class,
+            CraftVariable::EVENT_INIT,
+            function (Event $event) {
+                $variable = $event->sender;
+                $variable->set('images', ImageVariable::class);
             }
         );
     }
