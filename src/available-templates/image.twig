@@ -1,0 +1,68 @@
+{# check image exists, has a value and that a transform has been specified #}
+{% if (field is defined and field is not empty) and (transform is defined and transform is not empty) %}
+
+	{% if field is instance of('craft\\elements\\Asset') %}
+		{% set image = craft.assets.id(field.id).one() %}
+	{% else %}
+		{% set image = field.one() %}
+	{% endif %}
+
+	<picture>
+		{% if craft.app.images.supportsWebP and image.extension != "svg" %}
+			<source type="image/webp" media="(max-width: 599px)" srcset="{{ image.getUrl({
+				transform: transform ~ 'Mobile',
+				format: 'webp',
+			}) }}">
+			<source type="image/webp" media="(min-width: 600px)" srcset="{{ image.getUrl({
+				transform: transform,
+				format: 'webp',
+			}) }}">
+		{% endif %}
+		<source media="(max-width: 599px)" srcset="{{ image.url(transform ~ 'Mobile') }}">
+		<source media="(min-width: 600px)" srcset="{{ image.url(transform) }}">
+		{{ _self.tag(
+			image.url(transform),
+			alt ?? null,
+			class ?? null,
+			style ?? null,
+			attributes ?? null
+		) }}
+	</picture>
+
+{# Output image without transform #}
+{% elseif field is defined and field is not empty %}
+
+	{{ _self.tag(
+		(field is instance of('craft\\elements\\Asset')) ? craft.assets.id(field.id).one().url : field.one().url,
+		alt ?? null,
+		class ?? null,
+		style ?? null,
+		attributes ?? null
+	) }}
+
+{# Output image tag with passed in image url #}
+{% elseif fallback is defined and fallback is not empty %}
+
+	{{ _self.tag(
+		fallback,
+		alt ?? null,
+		class ?? null,
+		style ?? null,
+		attributes ?? null
+	) }}
+
+{% else %}
+	<script>console.log('[jbimage/image]:: An image could not be rendered. Either there was no image passed or we encountered an issue.')</script>
+{% endif %}
+
+{# Image Tag #}
+{% macro tag(src, alt, class, style, attributes) %}
+	<img src="{{ src }}"
+		alt="{% if alt is defined and alt is not empty %}{{ alt }}{% else %}{% endif %}"
+		{% if class is defined and class is not empty %}class="{{ class }}"{% endif %}
+		{% if style is defined and style is not empty %}stlye="{{ style }}"{% endif %}
+		{% if attributes is defined and attributes is not empty %}{% for attr, val in attributes %}{{ attr }}="{{ val }}" {% endfor %}{% endif %}
+		loading="lazy"
+	/>
+{% endmacro %}
+{# End Image Tag #}

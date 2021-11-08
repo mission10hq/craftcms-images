@@ -1,6 +1,6 @@
 {
-    "name": "jordanbeattie/image-optimization",
-    "description": "CraftCMS plugin to render images with the best performing template tags",
+    "name": "jordanbeattie/craftcms-images",
+    "description": "Render images in craftcms with optimized template tags",
     "type": "craft-plugin",
     "keywords": [
         "craft",
@@ -8,17 +8,25 @@
         "craftcms",
         "craft-plugin"
     ],
+    "support": {},
     "license": "MIT",
-    "autoload": {
-        "psr-4": {
-            "Jordanbeattie\\ImageOptimization\\": "src/"
-        }
-    },
     "authors": [
         {
             "name": "Jordan Beattie",
-            "email": "jordan@jordanbeattie.co.uk"
+            "homepage": "https://jordanbeattie.com"
         }
     ],
-    "require": {}
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+            "jordanbeattie\\images\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Image Optimization",
+        "handle": "image-optimization",
+        "class": "jordanbeattie\\images\\CraftCmsImages"
+    }
 }
