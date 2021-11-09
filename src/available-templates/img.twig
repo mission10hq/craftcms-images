@@ -1,4 +1,6 @@
-{# check image exists, has a value and that a transform has been specified #}
+{% import 'images/macros' as macros %}
+
+{# Check image exists, has a value and that a transform has been specified #}
 {% if (field is defined and field is not empty) and ((transform is defined and transform is not empty) and (craft.images.transformExists(transform) or craft.images.mobileTransformExists(transform))) %}
 
 	{% if field is instance of('craft\\elements\\Asset') %}
@@ -28,7 +30,7 @@
 		{% if craft.images.transformExists(transform) %}
 			<source media="(min-width: 600px)" srcset="{{ image.url(transform) }}">
 		{% endif %}
-		{{ _self.tag(
+		{{ macros.tag(
 			craft.images.transformExists(transform) ? image.url(transform) : image.url,
 			alt ?? null,
 			class ?? null,
@@ -40,18 +42,18 @@
 {# Output image without transform #}
 {% elseif field is defined and field is not empty %}
 
-	{{ _self.tag(
+	{{ macros.tag(
 		(field is instance of('craft\\elements\\Asset')) ? craft.assets.id(field.id).one().url : field.one().url,
-	alt ?? null,
-	class ?? null,
-	style ?? null,
-	attributes ?? null
+		alt ?? null,
+		class ?? null,
+		style ?? null,
+		attributes ?? null
 	) }}
 
 {# Output image tag with passed in image url #}
 {% elseif fallback is defined and fallback is not empty %}
 
-	{{ _self.tag(
+	{{ macros.tag(
 		fallback,
 		alt ?? null,
 		class ?? null,
@@ -59,32 +61,17 @@
 		attributes ?? null
 	) }}
 
+{# Report Error #}
 {% else %}
-	{{ _self.reportError("No image could be rendered. Check that you have passed an image and/or fallback.") }}
+
+	{{ macros.reportError("No image could be rendered. Check that you have passed an image and/or fallback.") }}
+
 {% endif %}
 
 {# Error reporting #}
 {% if (transform is defined) and (transform is not empty) and (not craft.images.transformExists(transform)) %}
-	{{ _self.reportError("The transform does not exist.") }}
+	{{ macros.reportError("The transform does not exist.") }}
 {% elseif (transform is defined) and (transform is not empty) and (not craft.images.mobileTransformExists(transform)) %}
-	{{ _self.reportError("The mobile transform does not exist.") }}
+	{{ macros.reportError("The mobile transform does not exist.") }}
 {% endif %}
 {# End Error reporting #}
-
-{# Img Tag Macro #}
-{% macro tag(src, alt, class, style, attributes) %}
-	<img src="{{ src }}"
-		alt="{% if alt is defined and alt is not empty %}{{ alt }}{% else %}{% endif %}"
-		{% if class is defined and class is not empty %}class="{{ class }}"{% endif %}
-		{% if style is defined and style is not empty %}stlye="{{ style }}"{% endif %}
-		{% if attributes is defined and attributes is not empty %}{% for attr, val in attributes %}{{ attr }}="{{ val }}" {% endfor %}{% endif %}
-		loading="lazy"
-	/>
-{% endmacro %}
-{# End Img Tag Macro #}
-
-{# Error Reporting Macro #}
-{% macro reportError(text) %}
-	<script>console.log('[images/img]:: {{ text }}')</script>
-{% endmacro %}
-{# End Error Reporting Macro #}
