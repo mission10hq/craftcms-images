@@ -9,7 +9,7 @@ composer require jordanbeattie/craftcms-images
 and install the plugin within the CMS. 
 
 ## Usage
-Instead of writing out `<img>` tags in your project, pass variables to an include statemeent which will optimize the image for you. 
+Instead of writing out `<img>` tags in your project, pass variables to the render function which will optimize the image for you. 
 
 | Variable | Description | 
 | --- | --- |
@@ -37,8 +37,7 @@ attributes: {
 ## Examples
 #### Full parameters
 ```
-{% include 'images/img' with {
-    field: block.image, 
+{{ craft.images.render(block.image, {
     transform: 'blockTransform', 
     fallback: 'https://example.com/fallback-image.png', 
     class: 'w-full h-full hidden md:block', 
@@ -46,21 +45,19 @@ attributes: {
     attributes: {
         'data-mh': 'my-block-image'
     }
-} %}
+}) }}
 ```
 
 #### Image without transform
 ```
-{% include 'images/img' with {
-    field: block.image, 
-} %}
+{{ craft.images.render(block.image) }}
 ```
 
 #### Static image
 ```
-{% include 'images/img' with {
-    fallback: 'https://example.com/fallback-image.png', 
- } %}
+{{ craft.images.render({
+    fallback: 'https://example.com/fallback-image.png'
+) }}
 ```
 
 #### Replacing an existing img tag
@@ -69,18 +66,16 @@ attributes: {
 ```
 should be replaced with
 ```
-{% include 'images/img' with {
-    field: tab.image,
+{{ craft.images.render(tab.image, {
     class: "block max-w-full p-0 m-0 rounded-lg pointer-events-none select-none"
-} %}
+) }}
 ```
 or with a transform
 ```
-{% include 'images/img' with {
-    field: tab.image,
+{{ craft.images.render( tab.image, {
     transform: 'tabBlockImage',
     class: "block max-w-full p-0 m-0 rounded-lg pointer-events-none select-none"
-} %}
+} }}
 ```
 
 ## Contact
