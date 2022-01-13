@@ -1,7 +1,7 @@
 {% import 'images/macros' as macros %}
 
 {# Check image exists, has a value and that a transform has been specified #}
-{% if (field is defined and field is not empty) and ((transform is defined and transform is not empty) and (craft.images.transformExists(transform) or craft.images.mobileTransformExists(transform))) %}
+{% if (field is defined and field is not empty) and ((transform is defined and transform is not empty) or (mobileTransform is defined and mobileTransform is not empty))%}
 
 	{% if field is instance of('craft\\elements\\Asset') %}
 		{% set image = craft.assets.id(field.id).one() %}
@@ -9,29 +9,29 @@
 		{% set image = field.one() %}
 	{% endif %}
 
-	<picture>
+	<picture {% if pictureClass is defined and pictureClass is not empty %}class="{{ pictureClass }}"{% endif %}>
 		{% if craft.app.images.supportsWebP and image.extension != "svg" %}
-			{% if craft.images.mobileTransformExists(transform) %}
+			{% if mobileTransform %}
 				<source type="image/webp" media="(max-width: 599px)" srcset="{{ image.getUrl({
-					transform: transform ~ 'Mobile',
+					transform: mobileTransform,
 					format: 'webp',
 				}) }}">
 			{% endif %}
-			{% if craft.images.transformExists(transform) %}
+			{% if transform %}
 				<source type="image/webp" media="(min-width: 600px)" srcset="{{ image.getUrl({
 					transform: transform,
 					format: 'webp',
 				}) }}">
 			{% endif %}
 		{% endif %}
-		{% if craft.images.mobileTransformExists(transform) %}
-			<source media="(max-width: 599px)" srcset="{{ image.url(transform ~ 'Mobile') }}">
+		{% if mobileTransform %}
+			<source media="(max-width: 599px)" srcset="{{ image.url(mobileTransform) }}">
 		{% endif %}
-		{% if craft.images.transformExists(transform) %}
+		{% if transform %}
 			<source media="(min-width: 600px)" srcset="{{ image.url(transform) }}">
 		{% endif %}
 		{{ macros.tag(
-			craft.images.transformExists(transform) ? image.url(transform) : image.url,
+			transform ? image.url(transform) : image.url,
 			alt ?? null,
 			class ?? null,
 			style ?? null,
@@ -67,11 +67,3 @@
 	{{ macros.reportError("No image could be rendered. Check that you have passed an image and/or fallback.") }}
 
 {% endif %}
-
-{# Error reporting #}
-{% if (transform is defined) and (transform is not empty) and (not craft.images.transformExists(transform)) %}
-	{{ macros.reportError("The transform does not exist.") }}
-{% elseif (transform is defined) and (transform is not empty) and (not craft.images.mobileTransformExists(transform)) %}
-	{{ macros.reportError("The mobile transform does not exist.") }}
-{% endif %}
-{# End Error reporting #}
