@@ -23,8 +23,8 @@ Class ImageVariable
                 {
                     return static::getTransform($options['transform']);
                 }
+                return $options['transform'];
             }
-            return $options['transform'];
         }
         return null;
     }
