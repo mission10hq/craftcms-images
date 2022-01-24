@@ -14,7 +14,7 @@ Instead of writing out `<img>` tags in your project, pass variables to the rende
 | Variable | Description | 
 | --- | --- |
 | Field | The CraftCMS field where users can upload a single image.|
-| Transform | The handle of an image transform to use. _*See transforms._ |
+| Transform | The handle or attributes of an image transform to use. _*See transforms._ |
 | Fallback | A static URL/path to an image that can be used if there is an issue rendering the image or if the field is empty. |
 | Class | Any classes that should be added to the tag |
 | Style | Any items to be included in the `style` attributes |
@@ -25,6 +25,8 @@ Instead of writing out `<img>` tags in your project, pass variables to the rende
 Including transforms is the best way to serve images. You can pass the transform handle through to the include. 
 The plugin will look for the transform with the handle provided and also a mobile version which should have the same handle appended with "Mobile". 
 e.g. _myTransformHandle_ and _myTransformHandleMobile_.
+You can also pass in the transform manually to avoid creating them in the CMS. See examples below. 
+If you do not specify a format for your transformed image and the server supports WebP, the image will be returned as a WebP to accomodate best web practices.
 
 ### Attributes
 Often, when using third-party packages such as MatchHeight, you will need to add custom attributes. These can be passed in as an array. 
@@ -39,6 +41,19 @@ attributes: {
 ```
 {{ craft.images.render(block.image, {
     transform: 'blockTransform', 
+    fallback: 'https://example.com/fallback-image.png', 
+    class: 'w-full h-full hidden md:block', 
+    style: 'display:none',
+    attributes: {
+        'data-mh': 'my-block-image'
+    }
+}) }}
+{{ craft.images.render(block.image, {
+    transform: {
+        width: 100, 
+        height: 100, 
+        mode: 'crop'
+    }, 
     fallback: 'https://example.com/fallback-image.png', 
     class: 'w-full h-full hidden md:block', 
     style: 'display:none',

@@ -76,4 +76,38 @@ Class ImageVariable
         ]);
     }
     
+    public function url($field = null, $options = null)
+    {
+        if( is_array($field) )
+        {
+            $options = $field;
+            $field = null;
+        }
+        if( !is_null($options) && array_key_exists('field', $options) )
+        {
+            $field = $options['field'];
+        }
+        if(!is_null($field) && !is_null($options) && array_key_exists('transform', $options))
+        {
+            if( !($field instanceof \craft\elements\Asset) )
+            {
+                $field = $field->one();
+            }
+            if( Craft::$app->images->supportsWebP && !(array_key_exists('format', $options['transform'])))
+            {
+                $options['transform']['format'] = 'webp';
+            }
+            return $field->setTransform($options['transform'])->url;
+        }
+        elseif(!is_null($field))
+        {
+            return $field->url;
+        }
+        elseif( array_key_exists('fallback', $options))
+        {
+            return $options['fallback'];
+        }
+        return '';
+    }
+    
 }
