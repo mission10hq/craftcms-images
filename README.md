@@ -36,6 +36,9 @@ attributes: {
 }
 ```
 
+### Returning a URL
+Only want to return a URL for the image? Use the URL function instead of render and simply pass in the image and transform and optional fallback image. See examples below
+
 ## Examples
 #### Full parameters
 ```
@@ -91,6 +94,16 @@ or with a transform
     transform: 'tabBlockImage',
     class: "block max-w-full p-0 m-0 rounded-lg pointer-events-none select-none"
 } }}
+```
+
+#### Returning a URL
+```
+{{ craft.images.url(myImageField, {
+    transform: {
+        height: 100, 
+        width: 100
+    }
+}) }}
 ```
 
 ## Contact
