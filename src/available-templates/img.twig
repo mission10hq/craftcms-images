@@ -32,7 +32,7 @@
 		{% endif %}
 		{{ macros.tag(
 			transform ? image.url(transform) : image.url,
-			alt ?? null,
+			alt ?? image.title,
 			class ?? null,
 			style ?? null,
 			attributes ?? null
@@ -42,9 +42,13 @@
 {# Output image without transform #}
 {% elseif field is defined and field is not empty %}
 
+	{% set image = (field is instance of('craft\\elements\\Asset'))
+					? craft.assets.id(field.id).one()
+					: field.one() %}
+
 	{{ macros.tag(
-		(field is instance of('craft\\elements\\Asset')) ? craft.assets.id(field.id).one().url : field.one().url,
-		alt ?? null,
+		image.url,
+		alt ?? image.title,
 		class ?? null,
 		style ?? null,
 		attributes ?? null
