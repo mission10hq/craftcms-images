@@ -17,21 +17,21 @@
 					format: 'webp',
 				}) }}">
 			{% endif %}
-			{% if transform %}
+			{% if transform and image.extension != "svg" %}
 				<source type="image/webp" media="(min-width: 600px)" srcset="{{ image.getUrl({
 					transform: transform,
 					format: 'webp',
 				}) }}">
 			{% endif %}
 		{% endif %}
-		{% if mobileTransform %}
+		{% if mobileTransform and image.extension != "svg" %}
 			<source media="(max-width: 599px)" srcset="{{ image.url(mobileTransform) }}">
 		{% endif %}
-		{% if transform %}
+		{% if transform and image.extension != "svg" %}
 			<source media="(min-width: 600px)" srcset="{{ image.url(transform) }}">
 		{% endif %}
 		{{ macros.tag(
-			transform ? image.url(transform) : image.url,
+			(transform and image.extension != "svg") ? image.url(transform) : image.url,
 			alt ?? image.title,
 			class ?? null,
 			style ?? null,
