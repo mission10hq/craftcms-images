@@ -71,8 +71,9 @@ Class ImageVariable
             'class' => $options['class'] ?? null,
             'alt' => $options['alt'] ?? null,
             'style' => $options['style'] ?? null,
-            'attributes' => $options['attributes'] ?? null,
+            'attributes' => $options['attributes'] ?? [],
             'pictureClass' => $options['picture-class'] ?? null,
+            'lazyLoading' => $options['lazyLoading'] ?? true
         ]);
     }
     

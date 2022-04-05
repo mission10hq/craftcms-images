@@ -35,7 +35,8 @@
 			alt ?? image.title,
 			class ?? null,
 			style ?? null,
-			attributes ?? null
+			attributes ?? null, 
+			lazyLoading ?? true
 		) }}
 	</picture>
 
@@ -51,7 +52,8 @@
 		alt ?? image.title,
 		class ?? null,
 		style ?? null,
-		attributes ?? null
+		attributes ?? null,
+		lazyLoading ?? true
 	) }}
 
 {# Output image tag with passed in image url #}
@@ -62,7 +64,8 @@
 		alt ?? null,
 		class ?? null,
 		style ?? null,
-		attributes ?? null
+		attributes ?? null,
+		lazyLoading ?? true
 	) }}
 
 {# Report Error #}

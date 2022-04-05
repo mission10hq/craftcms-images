@@ -1,12 +1,12 @@
 {# Img Tag Macro #}
-	{% macro tag(src, alt, class, style, attributes) %}
+	{% macro tag(src, alt, class, style, attributes, lazy) %}
 		<img src="{{ src }}"
 			alt="{% if alt is defined and alt is not empty %}{{ alt }}{% else %}{% endif %}"
 			{% if class is defined and class is not empty %}class="{{ class }}"{% endif %}
 			{% if style is defined and style is not empty %}style="{{ style }}"{% endif %}
 			{% if attributes is defined and attributes is not empty %}{% for attr, val in attributes %}{{ attr }}="{{ val }}" {% endfor %}{% endif %}
-			loading="lazy"
-		/>
+			{% if lazy is not defined or (lazy is defined and lazy == true) %}loading="lazy"{% endif %}
+		/> 
 	{% endmacro %}
 {# End Img Tag Macro #}
 
