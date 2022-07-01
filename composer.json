@@ -8,8 +8,6 @@
         "craftcms",
         "craft-plugin"
     ],
-    "support": {},
-    "license": "proprietary",
     "authors": [
         {
             "name": "Jordan Beattie",
@@ -28,5 +26,16 @@
         "name": "Image Optimization",
         "handle": "image-optimization",
         "class": "jordanbeattie\\images\\CraftCmsImages"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require-dev": {
+        "craftcms/rector": "dev-main"
+    },
+    "config": {
+        "allow-plugins": {
+            "yiisoft/yii2-composer": true,
+            "craftcms/plugin-installer": true
+        }
     }
 }
