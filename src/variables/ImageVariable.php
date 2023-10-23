@@ -73,7 +73,8 @@ Class ImageVariable
             'style' => $options['style'] ?? null,
             'attributes' => $options['attributes'] ?? [],
             'pictureClass' => $options['picture-class'] ?? null,
-            'lazyLoading' => $options['lazyLoading'] ?? true
+            'lazyLoading' => $options['lazyLoading'] ?? true,
+            'dimensions' => array_key_exists('dimensions', $options) ? $options['dimensions'] : true,
         ]);
     }
     
