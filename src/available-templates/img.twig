@@ -53,8 +53,8 @@
         {% set width, height = null, null %}
         {% if dimensions ?? false %}
             {% if transform %}
-                {% set width  = transform.width  %}
-                {% set height = transform.height %}
+                {% set width  = transform.width  ?? width  %}
+                {% set height = transform.height ?? height %}
             {% endif %}
             {% if attributes is defined and attributes is not empty %}
                 {% set width  = attributes['width']  ?? width  %}
