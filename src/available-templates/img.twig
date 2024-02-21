@@ -39,13 +39,20 @@
 
 		{% endif %}
 
-		{% if mobileTransform and image.extension != "svg" %}
-			<source media="(max-width: 599px)" srcset="{{ image.url(mobileTransform) }}">
-		{% endif %}
+        {# PNG #}
+        {% if image.extension != "svg" %}
+        
+            {# Mobile #}
+            {% if mobileTransform %}
+                {{ macros.src( image, mobileTransform, "sm", "png", "image/png" ) }}
+            {% elseif transform %}
+                {{ macros.src( image, transform, "sm", "png", "image/png" ) }}
+            {% endif %}
 
-		{% if transform and image.extension != "svg" %}
-			<source media="(min-width: 600px)" srcset="{{ image.url(transform) }}">
-		{% endif %}
+            {# Desktop #}
+            {% if transform %}
+                {{ macros.src( image, transform, "lg", "png", "image/png" ) }}
+            {% endif %}
 
         {% endif %}
 
