@@ -1,9 +1,9 @@
 <?php
 
-namespace jordanbeattie\images;
+namespace mission10\images;
 use \craft\web\View;
 use \craft\events\RegisterTemplateRootsEvent;
-use jordanbeattie\images\variables\ImageVariable;
+use mission10\images\variables\ImageVariable;
 use \craft\web\twig\variables\CraftVariable;
 
 use yii\base\Event;

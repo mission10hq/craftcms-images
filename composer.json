@@ -1,5 +1,5 @@
 {
-    "name": "jordanbeattie/craftcms-images",
+    "name": "mission10/craftcms-images",
     "description": "Render images in craftcms with optimized template tags",
     "type": "craft-plugin",
     "keywords": [
@@ -10,8 +10,8 @@
     ],
     "authors": [
         {
-            "name": "Jordan Beattie",
-            "homepage": "https://jordanbeattie.com"
+            "name": "Mission10",
+            "homepage": "https://mission10.co.uk"
         }
     ],
     "require": {
@@ -19,13 +19,13 @@
     },
     "autoload": {
         "psr-4": {
-            "jordanbeattie\\images\\": "src/"
+            "mission10\\images\\": "src/"
         }
     },
     "extra": {
         "name": "Image Optimization",
         "handle": "image-optimization",
-        "class": "jordanbeattie\\images\\CraftCmsImages"
+        "class": "mission10\\images\\CraftCmsImages"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

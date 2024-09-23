@@ -4,7 +4,7 @@ Render images in your Craft templates with a single include. Pass in classes, fa
 ## Installation
 Include the package in your project: 
 ```
-composer require jordanbeattie/craftcms-images
+composer require mission10/craftcms-images
 ```
 and install the plugin within the CMS. 
 
@@ -107,6 +107,6 @@ or with a transform
 ```
 
 ## Contact
-Jordan Beattie <br>
-jordan@jordanbeattie.com <br>
-www.jordanbeattie.com
+Mission10 <br>
+mark@mission10.co.uk <br>
+www.mission10.com

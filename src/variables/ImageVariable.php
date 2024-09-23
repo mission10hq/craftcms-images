@@ -1,6 +1,6 @@
 <?php
 
-namespace jordanbeattie\images\variables;
+namespace mission10\images\variables;
 use Craft;
 
 Class ImageVariable
