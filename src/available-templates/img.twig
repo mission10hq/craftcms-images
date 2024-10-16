@@ -44,14 +44,14 @@
         
             {# Mobile #}
             {% if mobileTransform %}
-                {{ macros.src( image, mobileTransform, "sm", "png", "image/png" ) }}
+                <source media="(max-width: 599px)" srcset="{{ image.url(mobileTransform) }}">
             {% elseif transform %}
-                {{ macros.src( image, transform, "sm", "png", "image/png" ) }}
+                <source media="(max-width: 599px)" srcset="{{ image.url(mobileTransform) }}">
             {% endif %}
 
             {# Desktop #}
             {% if transform %}
-                {{ macros.src( image, transform, "lg", "png", "image/png" ) }}
+                <source media="(min-width: 600px)" srcset="{{ image.url(transform) }}">
             {% endif %}
 
         {% endif %}
