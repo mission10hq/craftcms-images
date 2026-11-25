@@ -46,7 +46,7 @@
             {% if mobileTransform %}
                 <source media="(max-width: 599px)" srcset="{{ image.url(mobileTransform) }}">
             {% elseif transform %}
-                <source media="(max-width: 599px)" srcset="{{ image.url(mobileTransform) }}">
+                <source media="(max-width: 599px)" srcset="{{ image.url(transform) }}">
             {% endif %}
 
             {# Desktop #}
