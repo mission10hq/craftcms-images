@@ -31,12 +31,16 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require-dev": {
-        "craftcms/rector": "dev-main"
+        "craftcms/rector": "dev-main",
+        "phpunit/phpunit": "^11"
     },
     "config": {
         "allow-plugins": {
             "yiisoft/yii2-composer": true,
             "craftcms/plugin-installer": true
         }
+    },
+    "scripts": {
+        "test": "phpunit"
     }
 }

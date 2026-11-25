@@ -19,9 +19,12 @@ composer update
 
 # Run Rector (code modernization for Craft 5)
 vendor/bin/rector process
+
+# Run the template tests (img.twig rendered with plain Twig and stand-in assets)
+composer test
 ```
 
-Note: This plugin has no build step, test suite, or linter configured.
+Note: This plugin has no build step or linter configured.
 
 ## Architecture
 
